@@ -92,7 +92,7 @@ describe("/api/pay", () => {
       method: "creditCard",
       totalAmount: 100,
       redirectUrl: "example.com",
-      checkoutApiUrl: "http://localhost:3000",
+      checkoutApiUrl: "http://localhost:3009",
     } as PayRequestBody;
 
     req.headers = {
@@ -152,7 +152,7 @@ describe("/api/pay", () => {
       method: "creditCard",
       totalAmount: 100,
       redirectUrl: "example.com",
-      checkoutApiUrl: "http://localhost:3000",
+      checkoutApiUrl: "http://localhost:3009",
     } as PayRequestBody;
 
     req.headers = {
@@ -201,7 +201,7 @@ describe("/api/pay", () => {
       method: "creditCard",
       totalAmount: 100,
       redirectUrl: "example.com",
-      checkoutApiUrl: "http://localhost:3000",
+      checkoutApiUrl: "http://localhost:3009",
     } as PayRequestBody;
 
     await pay(req, res);
@@ -258,7 +258,7 @@ describe("/api/pay", () => {
       method: "creditCard",
       totalAmount: 100,
       redirectUrl: "example.com",
-      checkoutApiUrl: "http://localhost:3000",
+      checkoutApiUrl: "http://localhost:3009",
     } as PayRequestBody;
 
     req.headers = {
