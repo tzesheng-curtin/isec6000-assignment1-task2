@@ -50,7 +50,7 @@ services:
     depends_on:
        - api
     build:
-      context: ./saleor-storefront
+      context: ./react-storefront
       dockerfile: Dockerfile.base
       args:
         - SALEOR_API_URL=http://localhost:8000/graphql/ # handled by nginx
@@ -66,7 +66,7 @@ services:
     depends_on:
        - api
     build:
-      context: ./saleor-storefront
+      context: ./react-storefront
       dockerfile: Dockerfile.base
       args:
         - SALEOR_API_URL=http://localhost:8000/graphql/ # handled by nginx
