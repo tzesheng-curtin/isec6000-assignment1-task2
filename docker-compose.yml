@@ -60,6 +60,7 @@ services:
     ports:
       - 3001:3001
     command: pnpm turbo run start --filter=saleor-app-checkout...
+    
   storefront:
     container_name: storefront
     depends_on:
