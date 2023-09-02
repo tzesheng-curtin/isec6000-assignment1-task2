@@ -48,9 +48,9 @@ services:
   saleor-app-checkout:
     container_name: saleor-app-checkout
     depends_on:
-      -api
+       - api
     build:
-      context: ./react-storefront
+      context: ./saleor-storefront
       dockerfile: Dockerfile.base
       args:
         - SALEOR_API_URL=http://localhost:8000/graphql/ # handled by nginx
@@ -60,13 +60,13 @@ services:
     ports:
       - 3001:3001
     command: pnpm turbo run start --filter=saleor-app-checkout...
-    
+
   storefront:
     container_name: storefront
     depends_on:
-      -api
+       - api
     build:
-      context: ./react-storefront
+      context: ./saleor-storefront
       dockerfile: Dockerfile.base
       args:
         - SALEOR_API_URL=http://localhost:8000/graphql/ # handled by nginx
