@@ -59,12 +59,15 @@ services:
         - CLOUD_DEPLOYMENT_URL=
     ports:
       - 3001:3001
+    networks:
+      - saleor-backend-tier
     command: pnpm turbo run start --filter=saleor-app-checkout...
 
   storefront:
     container_name: storefront
     depends_on:
        - api
+       - saleor-app-checkout
     build:
       context: ./react-storefront
       dockerfile: Dockerfile.base
@@ -76,6 +79,8 @@ services:
         - CLOUD_DEPLOYMENT_URL=
     ports:
       - 3009:3009
+    networks:
+      - saleor-backend-tier
     command: sh -c '(nginx &) && pnpm turbo run start --filter=storefront...'
 
   redis:

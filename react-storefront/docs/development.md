@@ -99,7 +99,7 @@ Either way, [the applications will start on different ports](#ports).
 
 ### Ports
 
-- apps/react-storefront: **http://localhost:3000**
+- apps/react-storefront: **http://localhost:3009**
 - apps/saleor-app-checkout: **http://localhost:3001**
 - packages/checkout-storefront: **http://localhost:3002**
 - packages/ui-kit storybook: **http://localhost:6006**
