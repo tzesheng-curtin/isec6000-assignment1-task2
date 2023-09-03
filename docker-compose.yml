@@ -22,7 +22,7 @@ services:
       - backend.env
     environment:
       - JAEGER_AGENT_HOST=jaeger
-      - DASHBOARD_URL=http://localhost:9000/
+      - DASHBOARD_URL=http://localhost:9003/
       - ALLOWED_HOSTS=localhost,api
 
   dashboard:
@@ -44,6 +44,44 @@ services:
     environment:
       - POSTGRES_USER=saleor
       - POSTGRES_PASSWORD=saleor
+
+  saleor-app-checkout:
+    container_name: saleor-app-checkout
+    depends_on:
+       - api
+    build:
+      context: ./react-storefront
+      dockerfile: Dockerfile.base
+      args:
+        - SALEOR_API_URL=http://localhost:8000/graphql/ # handled by nginx
+        - CHECKOUT_APP_URL=http://localhost:3001
+        - CHECKOUT_STOREFRONT_URL=http://localhost:3001/checkout-spa/
+        - CLOUD_DEPLOYMENT_URL=
+    ports:
+      - 3001:3001
+    networks:
+      - saleor-backend-tier
+    command: pnpm turbo run start --filter=saleor-app-checkout...
+
+  storefront:
+    container_name: storefront
+    depends_on:
+       - api
+       - saleor-app-checkout
+    build:
+      context: ./react-storefront
+      dockerfile: Dockerfile.base
+      args:
+        - SALEOR_API_URL=http://localhost:8000/graphql/ # handled by nginx
+        - STOREFRONT_URL=http://localhost:3009
+        - CHECKOUT_APP_URL=http://localhost:3001
+        - CHECKOUT_STOREFRONT_URL=http://localhost:3001/checkout-spa/
+        - CLOUD_DEPLOYMENT_URL=
+    ports:
+      - 3009:3000
+    networks:
+      - saleor-backend-tier
+    command: sh -c '(nginx &) && pnpm turbo run start --filter=storefront...'
 
   redis:
     image: library/redis:7.0-alpine
